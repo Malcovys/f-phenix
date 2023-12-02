@@ -1,0 +1,23 @@
+{
+  "name": "api",
+  "version": "1.0.0",
+  "description": "f-phenix api",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Malcovys/f-phenix.git"
+  },
+  "author": "malcovys_dev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Malcovys/f-phenix/issues"
+  },
+  "homepage": "https://github.com/Malcovys/f-phenix#readme",
+  "dependencies": {
+    "ejs": "^3.1.9",
+    "express": "^4.18.2"
+  }
+}
