@@ -1,0 +1,90 @@
+####### Entityies #######
+
+# User entity:
+    -user_id:
+    -user_name: alphabetic
+    -user_mail: alphanumeric
+    -user_password: alphanumeric
+    -user_room: numeric
+    -is_absent: bool
+    -user_promotion: numeric
+    -user_arrival_date: date
+    -is_valid : bool
+    -user_room: numeric
+
+# Absence entity:
+    -absence_id: alphanumeric
+    -absence_day_number: numeric
+    -departure_date: date
+    -possible_return_date: date
+    -return_date: date
+    -go_to: alphanumeric
+
+# Organisarion entity:
+    -organisation_id
+    -reponsabilities: array, alphabetic
+
+# Cvf entity:
+    -cvf_id: alphanumeric
+    -cvf_date: date
+    -cvf_discussion: alphanumeric
+    -is_sended: bool
+
+# Rule entity:
+    -rule_id
+    -rule_description
+    -rule_add_date
+
+# Event entity:
+    -event_id: alphanumeric
+    -event_name: alphabetic
+    -event_date: date
+
+# Task entity:
+    -task_id: alphanumeric
+    -task_name: alphabetic
+    -task_date: date
+    -is_finished: bool
+
+# Chat entity:
+    -chat_id: alphanumeric
+    -chat_creation_date: date
+
+# Message entity:
+    -messag_id: alphanumeric
+    -message: alphabetic
+
+###### cardinalities ######
+
+- User (0;1) -> (0;n) Absence
+- User (1;n) -> (1;1) Organisarion
+- User (1;n) -> (1;n) Cvf
+- User (1;n) -> (1;1) Task
+- User (0;1) -> (1;n) Event
+- User (n;n) -> (0;n) Chat
+- Chat (1;1) -> (1;n) Message
+- User (0;1) -> (1;n) Rule
+
+###### MLD ######
+
+- Organisarion(organisation_id, reponsabilities)
+
+- User(user_id, user_name, user_mail, user_password, user_room, user_promotion, user_arrival_date, is_absent, is_valid, *organisation_id, *task_id)
+
+- Absence(absence_id, *user_id, absence_day_number, departure_date, possible_return_date, return_date, go_to)
+
+- Cvf(cvf_id, cvf_date, cvf_discussion, is_sended)
+
+- CvfPresence(*cvf_id, *user_id)
+
+- Task(task_id, task_name, task_date)
+
+- Event(event_id, event_name, event_date, *user_id)
+
+- Chat(chat_id, chat_creation_date)
+
+- UserChat(*chat_id, *user_id)
+
+- Message(messag_id, *chat_id, message)
+
+- Rules(rule_id, rule_description, rule_add_date, *user_id)
