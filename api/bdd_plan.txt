@@ -1,58 +1,59 @@
 ####### Entityies #######
 
 # User entity:
-    -user_id:
-    -user_name: alphabetic
-    -user_mail: alphanumeric
-    -user_password: alphanumeric
-    -user_room: numeric
-    -is_absent: bool
-    -user_promotion: numeric
-    -user_arrival_date: date
-    -is_valid : bool
-    -user_room: numeric
+    -user_id: character(7), format: usr-000, constraint: notnull
+    -user_name: character varying(20), constraint: notnull
+    -user_mail: character varying(100), constraint: notnull
+    -user_password: character varying(100), constraint: notnull
+    -user_room: integer, constraint: notnull
+    -is_here: boolean, constraint: notnull, default value: true
+    -user_promotion: integer, constraint: notnull
+    -user_arrival_date: date, constraint: nullable
+    -is_valid : boolean, constraint: notnull, default value: true
 
 # Absence entity:
-    -absence_id: alphanumeric
-    -absence_day_number: numeric
-    -departure_date: date
-    -possible_return_date: date
-    -return_date: date
-    -go_to: alphanumeric
+    -absence_id: character(7), format: abs-000, constraint: notnull
+    -absence_day_number: integer, constraint: nullable
+    -departure_date: date, constraint: nullable
+    -possible_return_date: date, constraint: nullable
+    -return_date: date, constraint: nullable
+    -go_to: character varying(20), constraint: nullable
 
 # Organisarion entity:
-    -organisation_id
-    -reponsabilities: array, alphabetic
+    -organisation_id: character(7), format: org-000, constraint: notnull
+    -roles: character varying[], constraint: notnull
+    -is_active: boolean, constraint: notnull, default value: true
+    -creation_date: date, constraint: nullable
 
 # Cvf entity:
-    -cvf_id: alphanumeric
-    -cvf_date: date
-    -cvf_discussion: alphanumeric
-    -is_sended: bool
+    -cvf_id: character(7),format: cvf-000, constraint: notnull
+    -cvf_date: date, constraint: notnull
+    -cvf_file_path: character varying(300), constraint: nullable
+    -is_sended: boolean, constraint: notnull
 
 # Rule entity:
-    -rule_id
-    -rule_description
-    -rule_add_date
+    -rule_id: character(7), format: rul-000, constraint: notnull
+    -rule: character varying(300), constraint: notnull
+    -rule_creation_date: date, constraint: nullable
 
 # Event entity:
-    -event_id: alphanumeric
-    -event_name: alphabetic
-    -event_date: date
+    -event_id: character(7), format: evn-000
+    -event_name: character varying(100), constraint: notnull
+    -event_date: date, constraint: notnull
 
 # Task entity:
-    -task_id: alphanumeric
-    -task_name: alphabetic
-    -task_date: date
-    -is_finished: bool
+    -task_id: character(7) ,format: tsk-000, constraint: notnull
+    -task_name: character varying(20), constraint: notnull
+    -task_date: date, constraint: notnull
+    -is_finished: boolean, constraint: notnull, default value: false
 
 # Chat entity:
-    -chat_id: alphanumeric
-    -chat_creation_date: date
+    -chat_id: character(7), format: cht-000, constraint: notnull
+    -chat_creation_date: date, constraint: notnull
 
 # Message entity:
-    -messag_id: alphanumeric
-    -message: alphabetic
+    -messag_id: character(7), format: msg-000, constraint: notnull
+    -message: character varying(500), notnull
 
 ###### cardinalities ######
 
@@ -67,24 +68,27 @@
 
 ###### MLD ######
 
-- Organisarion(organisation_id, reponsabilities)
+- Organisarion(organisation_id, roles, is_active, creation_date)
 
-- User(user_id, user_name, user_mail, user_password, user_room, user_promotion, user_arrival_date, is_absent, is_valid, *organisation_id, *task_id)
+- User(id, name, email, password, room, promotion, arrival_date, is_absent, is_valid, *org_id, *tsk_id)
 
-- Absence(absence_id, *user_id, absence_day_number, departure_date, possible_return_date, return_date, go_to)
+- Absence(id, *usr_id, day_number, departure_date, possible_return_date, return_date, go_to)
 
-- Cvf(cvf_id, cvf_date, cvf_discussion, is_sended)
+- Cvf(id, date, file_path, is_sended)
 
 - CvfPresence(*cvf_id, *user_id)
 
-- Task(task_id, task_name, task_date)
+- Task(id, name, date)
 
-- Event(event_id, event_name, event_date, *user_id)
+- Event(id, name, date, *usr_id)
 
-- Chat(chat_id, chat_creation_date)
+- Chat(id, creation_date)
 
-- UserChat(*chat_id, *user_id)
+- UserChat(*cht_id, *usr_id)
 
-- Message(messag_id, *chat_id, message)
+- Message(id, *chat_id, message)
 
-- Rules(rule_id, rule_description, rule_add_date, *user_id)
+- Rule(id, rule, creation_date)
+
+Legend : '*' = foreing key
+         
