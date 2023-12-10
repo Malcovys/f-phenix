@@ -68,27 +68,27 @@
 
 ###### MLD ######
 
-- Organisarion(organisation_id, roles, is_active, creation_date)
+- Organisarion(org_id, roles, is_active, creation_date)
 
-- User(id, name, email, password, room, promotion, arrival_date, is_absent, is_valid, *org_id, *tsk_id)
+- User(usr_id, name, email, password, room, promotion, arrival_date, is_absent, is_valid, *org_id, *tsk_id)
 
-- Absence(id, *usr_id, day_number, departure_date, possible_return_date, return_date, go_to)
+- Absence(abs_id, *usr_id, day_number, departure_date, possible_return_date, return_date, go_to)
 
-- Cvf(id, date, file_path, is_sended)
+- Cvf(cvf_id, date, file_path, is_sended)
 
 - CvfPresence(*cvf_id, *user_id)
 
-- Task(id, name, date)
+- Task(tsk_id, name, date)
 
-- Event(id, name, date, *usr_id)
+- Event(evn_id, name, date, *usr_id)
 
 - Chat(id, creation_date)
 
 - UserChat(*cht_id, *usr_id)
 
-- Message(id, *chat_id, message)
+- Message(msg_id, *chat_id, message)
 
-- Rule(id, rule, creation_date)
+- Rule(rls_id, rule, creation_date)
 
 Legend : '*' = foreing key
          
