@@ -1,5 +1,5 @@
 const http = require('http');
-const app = require('./app/app');
+const app = require('./src/app');
 
 const normalizePort = value => {
     const port = parseInt(value, 10);
@@ -20,7 +20,7 @@ const errorHandler = error => {
         throw error;
     }
     const address = server.address();
-    const bind = typeof address === 'string' ? 'pip' + address : 'port' + port;
+    const bind = typeof address === 'string' ? 'pip' + address : 'port ' + port;
     switch (error.code) {
         case 'EACCES':
             console.error(bind + ' require elevated privileges.');

@@ -1,4 +1,5 @@
 const express = require('express');
+const usersController = require('./controllers/users');
 
 const app = express();
 
@@ -14,10 +15,11 @@ app.use((req, res, next) => {
 
 // POST
 app.post('/api/user/new', (req, res) => {
-  console.log(req.body);
-  res.status(201).json({
-    message: 'User creaded !'
-  });
+  if (Object.keys(req.body).length > 0) {
+    stautsCode = usersController.createUser(req.body);
+  }
+
+  res.status(stautsCode);
 });
 
 // GET
