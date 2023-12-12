@@ -16,10 +16,13 @@ app.use((req, res, next) => {
 // POST
 app.post('/api/user/new', (req, res) => {
   if (Object.keys(req.body).length > 0) {
-    stautsCode = usersController.createUser(req.body);
+    usersController.createUser(req.body, (err) => {
+      if(err) {
+        return res.status(400).json({ 'error': 'Faild to create user. ' + err });
+      }
+      return res.status(201).json({ 'message': 'User created.'});
+    });
   }
-
-  res.status(stautsCode);
 });
 
 // GET
